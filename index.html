@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Misterme</title>
+  <style>
+    body {
+      background-color: black;
+      color: white;
+      font-family: sans-serif;
+    }
+
+    .contenedor {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 20px;
+      justify-content: center;
+      margin: 20px;
+    }
+
+    .boton {
+      width: 150px;
+      cursor: pointer;
+    }
+
+    .boton img {
+      width: 100%;
+      height: auto;
+      display: block;
+      border-radius: 10px;
+      transition: transform 0.2s ease;
+    }
+
+    .boton img:hover {
+      transform: scale(1.05);
+    }
+
+    .ads { 
+      margin:20px auto; 
+      width:300px; 
+      height:250px; 
+      background:#ddd; 
+      display:flex; 
+      justify-content:center; 
+      align-items:center; 
+      color:#555; 
+      font-weight:bold; 
+      border-radius:8px; 
+    }
+  </style>
+</head>
+<!-- Script de Google AdSense -->
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4941897916276886" 
+        crossorigin="anonymous"></script>
+
+<body>
+  <div id="contenedor-principal"></div>
+
+  <script>
+    const total = 100;              // Número total de imágenes
+    const carpeta = "imagen";        // Carpeta donde están las imágenes
+    const contenedorPrincipal = document.getElementById("contenedor-principal");
+    const anunciosCada = 6;          // Mostrar anuncio cada 6 imágenes
+
+    let contenedor = document.createElement("div");
+    contenedor.className = "contenedor";
+
+    for (let i = 1; i <= total; i++) {
+      const div = document.createElement("div");
+      div.className = "boton";
+      div.onclick = () => window.open(`servicio-${String(i).padStart(2,'0')}.html`, "_blank");
+
+      const img = document.createElement("img");
+      img.src = `${carpeta}/imagen-${String(i).padStart(2,'0')}.jpg`;
+      img.alt = `Disponible ${i}`;
+
+      div.appendChild(img);
+      contenedor.appendChild(div);
+
+      // Cada 6 divs, insertamos contenedor actual + anuncio y creamos nuevo contenedor
+      if (i % anunciosCada === 0 || i === total) {
+        contenedorPrincipal.appendChild(contenedor);
+
+        // Crear anuncio
+        const ad = document.createElement("div");
+        ad.className = "ads";
+        ad.textContent = "anuncio";  // Aquí puedes poner tu código de AdSense si quieres
+        contenedorPrincipal.appendChild(ad);
+
+        // Nuevo contenedor para siguientes imágenes
+        contenedor = document.createElement("div");
+        contenedor.className = "contenedor";
+      }
+    }
+  </script>
+</body>
+</html>
